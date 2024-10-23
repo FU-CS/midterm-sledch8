@@ -129,13 +129,68 @@ public class CompleteBinaryTree {
         return str;
     }
 
+    public Boolean question1(){
+        return is_max_heap(this.root);
+    }
+
+    private Boolean is_max_heap(Node curr){
+        if (curr == null){
+            return true;
+        }
+        
+
+        else if (curr.left != null && curr.left.data > curr.data){
+            return false;
+        }
+        
+
+        else if (curr.right != null && curr.right.data > curr.data){
+            return false;
+        }
+
+        else if (curr.left != null){
+            is_max_heap(curr.left);
+        }
+        else if (curr.right != null){
+            is_max_heap(curr.right);
+        }
+        if (curr.data > this.root.data){
+            return false;
+        }
+        return true;
+
+    }
+
+    public CompleteBinaryTree question2(){
+        CompleteBinaryTree newtree = copy(this.root);
+
+        return newtree;
+
+    }
+
+    private CompleteBinaryTree copy(Node curr){
+        CompleteBinaryTree newtree = new CompleteBinaryTree();
+        newtree.insert(curr.data);
+        if (curr.left != null){
+            newtree.insert(curr.left.data);
+            copy(curr.left);
+        }
+        else if (curr.right != null){
+            newtree.insert(curr.right.data);
+            copy(curr.right);
+        }
+        return newtree;
+        
+    }
+
+
     public static void main(String[] args) {
         CompleteBinaryTree tree = new CompleteBinaryTree();
-        tree.insert(1);
-        tree.insert(2);
+        tree.insert(9);
+        tree.insert(6);
         tree.insert(3);
-        tree.insert(4);
-        tree.insert(5);
+        tree.insert(8);
+        tree.insert(1);
 
         System.out.println(tree.toString());
     }
